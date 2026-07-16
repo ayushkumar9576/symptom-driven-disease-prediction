@@ -30,11 +30,12 @@ class Preprocessor:
         df["diseases"] = self._label_encoder.fit_transform(df["diseases"])
         return df
 
-    def save_label_encoder(self, path: str | Path) -> None:
+    def save_label_encoder(self, path: str | Path = "model/lable.pkl") -> None:
         joblib.dump(self._label_encoder, Path(path))
     
-    def inverse_transform(self, label: int) -> str:
-        return self._label_encoder.inverse_transform([label])[0]
+    @staticmethod
+    def load_label_encoder(path: str | Path = "model/lable.pkl") -> LabelEncoder:
+        return joblib.load(Path(path))
 
     def _reduce_dataset_size(self, df: pd.DataFrame, target_rows: int = 100000) -> pd.DataFrame:
         if len(df) <= target_rows:

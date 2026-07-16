@@ -74,3 +74,6 @@ class RandomForestModel:
     def load_full(cls ,path: str | Path = "model/full_model.pkl")-> "RandomForestModel":
         logger.info("Loading the full model from the Saved Models")
         return joblib.load(path)
+    
+    def predict_proba(self, X: pd.DataFrame):
+        return self._model.predict_proba(X)
