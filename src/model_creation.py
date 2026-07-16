@@ -77,3 +77,6 @@ class RandomForestModel:
     
     def predict_proba(self, X: pd.DataFrame):
         return self._model.predict_proba(X)
+    
+    def feature_names(self) -> list[str]:
+        return list(self._model.feature_names_in_)

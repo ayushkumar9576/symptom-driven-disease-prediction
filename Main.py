@@ -12,7 +12,7 @@ TRAIN_MODEL = False
 def main()-> None:
     loader = DataLoader("data/archive.zip")
     loader.save()
-    df = loader.load("data/Final_Disease_dataset.csv")
+    df = loader.load("data/Final_Augmented_dataset_Diseases_and_Symptoms.csv")
 
     preprocessor = Preprocessor(10)
     df = preprocessor.preprocess(df)
