@@ -33,10 +33,26 @@ class Preprocessor:
     def save_label_encoder(self, path: str | Path) -> None:
         joblib.dump(self._label_encoder, Path(path))
     
+    def inverse_transform(self, label: int) -> str:
+        return self._label_encoder.inverse_transform([label])[0]
+
+    def _reduce_dataset_size(self, df: pd.DataFrame, target_rows: int = 100000) -> pd.DataFrame:
+        if len(df) <= target_rows:
+            return df.reset_index(drop=True)
+
+        fraction = target_rows / len(df)
+        reduced_groups = []
+        for _, group in df.groupby("diseases"):
+            sample_size = max(1, round(len(group) * fraction))
+            reduced_groups.append(group.sample(n=sample_size, random_state=42))
+
+        return pd.concat(reduced_groups, ignore_index=True)
+
     def preprocess(self, df: pd.DataFrame) -> pd.DataFrame:
         logger.info("Preprocessing on the Dataset")
         df = self._remove_duplicate_rows(df)
         df = self._remove_rare_diseases(df)
+        df = self._reduce_dataset_size(df, target_rows= 150000)
         df = self._remove_constant_columns(df)
         df = self._encode_target(df)
         self.save_label_encoder("model/lable.pkl")
