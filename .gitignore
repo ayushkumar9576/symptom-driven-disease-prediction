@@ -1,0 +1,7 @@
+virtual
+Final_Augmented_dataset_Diseases_and_Symptoms.csv
+__pycache__
+lable.pkl
+evaluation_report.txt
+full_model.pkl
+predict_model.pkl
