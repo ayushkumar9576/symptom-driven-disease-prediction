@@ -27,9 +27,6 @@ class ModelEvaluation:
         logger.info(f"Recall   : {recall:.4f}")
         logger.info(f"F1 Score : {f1:.4f}")
 
-        logger.info("\nClassification Report\n")
-        logger.info(report)
-
         report_path = Path("model/evaluation_report.txt")
         report_path.write_text(report)
 

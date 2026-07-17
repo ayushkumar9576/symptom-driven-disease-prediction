@@ -19,8 +19,8 @@ class RandomForestModel:
         cv = StratifiedKFold(n_splits= 3, shuffle= True, random_state= 42)
         search = RandomizedSearchCV(
             estimator=RandomForestClassifier(bootstrap= True, class_weight= "balanced", random_state= 42, n_jobs= 1),
-            param_distributions={"n_estimators": [300, 500, 700], "max_depth": [10, 15, 20, 25, 30], "min_samples_split": [2, 5, 10, 20], "min_samples_leaf": [1, 2, 4, 8, 16], "max_features": ["sqrt", "log2", 0.3, 0.5], "max_samples": [0.6, 0.8, 1.0]},
-            n_iter= 75, scoring="f1_macro", cv= cv, random_state= 42, n_jobs= -1, refit= True, verbose= 1, return_train_score= True)
+            param_distributions={"n_estimators": [150, 200, 250, 300], "max_depth": [10, 12, 15, 18], "min_samples_split": [10, 20, 30], "min_samples_leaf": [4, 8], "max_features": ["sqrt", "log2"], "max_samples": [0.5, 0.6]},
+            n_iter= 40, scoring="f1_macro", cv= cv, random_state= 42, n_jobs= -1, refit= True, verbose= 1, return_train_score= True)
         
         search.fit(X_train, y_train)
         
