@@ -405,9 +405,7 @@ st.write("")
 if len(filtered_symptoms) == 0:
     st.info("No symptoms match your search.")
 else:
-    # Height of ~220px shows about 4-5 rows before scrolling
     with st.container(height=220):
-
         columns = st.columns(3)
 
         for index, symptom in enumerate(filtered_symptoms):
@@ -415,12 +413,7 @@ else:
 
             with column:
                 checked = symptom in st.session_state.selected_symptoms
-
-                value = st.checkbox(
-                    symptom.replace("_", " ").title(),
-                    value=checked,
-                    key=f"checkbox_{symptom}"
-                )
+                value = st.checkbox(symptom.replace("_", " ").title(), value=checked, key=f"checkbox_{symptom}")
 
                 if value:
                     st.session_state.selected_symptoms.add(symptom)
